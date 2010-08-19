@@ -8,43 +8,50 @@ To run:
 
 Macs and Linux are like:
 
-    1282213360099 'before hello'
+    1282213843264 'before hello'
           >>>DoSomethingAsync 1 2 hello
           >>>about to eio_custom
           >>>returning
-    1282213360115 'before goodbye'
+    1282213843280 'before goodbye'
           >>>DoSomethingAsync 3 4 goodbye
           >>>about to eio_custom
           >>>returning
           >>>DoSomething 6438992
+          >>>sr pointer 6438960
           >>>about to sleep
           >>>DoSomething 622854192
+          >>>sr pointer 622854160
           >>>about to sleep
           >>>read req, about to set result
-          >>>returning
           >>>read req, about to set result
+          >>>x 1
+          >>>x 3
+          >>>y 2
+          >>>y 4
+          >>>returning
           >>>returning
           >>>DoSomething_After 6438992
-    1282213362116 null 3 'hello'
+    1282213845281 null 3 'hello'
           >>>DoSomething_After 622854192
-    1282213362116 null 7 'goodbye'
-
+    1282213845281 null 7 'goodbye'
 
 
 But solaris is all:
 
-    1282213076156 'before hello'
+    1282213873013 'before hello'
           >>>DoSomethingAsync 1 2 hello
           >>>about to eio_custom
           >>>returning
           >>>DoSomething 139077240
+          >>>sr pointer 1024
           >>>about to sleep
-    1282213076175 'before goodbye'
+    1282213873032 'before goodbye'
           >>>DoSomethingAsync 3 4 goodbye
           >>>about to eio_custom
           >>>returning
           >>>DoSomething 139077352
+          >>>sr pointer 1024
           >>>about to sleep
           >>>read req, about to set result
-          >>>read req, about to set result
     Segmentation Fault (core dumped)
+

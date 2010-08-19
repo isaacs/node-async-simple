@@ -52,9 +52,15 @@ static Handle<Value> DoSomethingAsync (const Arguments& args) {
 static int DoSomething (eio_req *req) {
   fprintf(stderr, "      >>>DoSomething %d\n", req);
   struct simple_request * sr = (struct simple_request *)req->data;
+  // note that this is always 1024 on Solaris, not some big number.
+  // It's like it loses the req->data somewhere along the way.  ?
+  fprintf(stderr, "      >>>sr pointer %d\n", sr);
   fprintf(stderr, "      >>>about to sleep\n");
   sleep(2);
   fprintf(stderr, "      >>>read req, about to set result\n");
+  // just READING the data seems to blow it up.
+  fprintf(stderr, "      >>>x %d\n", sr->x);
+  fprintf(stderr, "      >>>y %d\n", sr->y);
   // Why does this crash in Solaris?
   req->result = sr->x + sr->y;
   fprintf(stderr, "      >>>returning\n");
