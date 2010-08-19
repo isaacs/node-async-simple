@@ -50,7 +50,7 @@ static Handle<Value> DoSomethingAsync (const Arguments& args) {
 
 // this function happens on the thread pool
 static int DoSomething (eio_req *req) {
-  fprintf(stderr, "      >>>DoSomething %d\n", req);
+  fprintf(stderr, "      >>>DoSomething %d,%d\n", req, req->data);
   struct simple_request * sr = (struct simple_request *)req->data;
   // note that this is always 1024 on Solaris, not some big number.
   // It's like it loses the req->data somewhere along the way.  ?
