@@ -18,26 +18,23 @@ struct simple_request {
   int x;
   int y;
   Persistent<Function> cb;
-  char name[1];
 };
 
 static Handle<Value> DoSomethingAsync (const Arguments& args) {
   HandleScope scope;
-  const char *usage = "usage: doSomething(x, y, name, cb)";
-  if (args.Length() != 4) {
+  const char *usage = "usage: doSomething(x, y, cb)";
+  if (args.Length() != 3) {
     return ThrowException(Exception::Error(String::New(usage)));
   }
   int x = args[0]->Int32Value();
   int y = args[1]->Int32Value();
-  String::Utf8Value name(args[2]);
-  fprintf(stderr, "      >>>DoSomethingAsync %d %d %s\n", x, y, *name);
-  Local<Function> cb = Local<Function>::Cast(args[3]);
+  fprintf(stderr, "      >>>DoSomethingAsync %d %d\n", x, y);
+  Local<Function> cb = Local<Function>::Cast(args[2]);
   
   simple_request *sr = (simple_request *)
-    malloc(sizeof(struct simple_request) + name.length() + 1);
+    malloc(sizeof(struct simple_request) + 1);
   
   sr->cb = Persistent<Function>::New(cb);
-  strncpy(sr->name, *name, name.length() + 1);
   sr->x = x;
   sr->y = y;
 
@@ -72,12 +69,11 @@ static int DoSomething_After (eio_req *req) {
   HandleScope scope;
   ev_unref(EV_DEFAULT_UC);
   struct simple_request * sr = (struct simple_request *)req->data;
-  Local<Value> argv[3];
+  Local<Value> argv[2];
   argv[0] = Local<Value>::New(Null());
   argv[1] = Integer::New(req->result);
-  argv[2] = String::New(sr->name);
   TryCatch try_catch;
-  sr->cb->Call(Context::GetCurrent()->Global(), 3, argv);
+  sr->cb->Call(Context::GetCurrent()->Global(), 2, argv);
   if (try_catch.HasCaught()) {
     FatalException(try_catch);
   }
