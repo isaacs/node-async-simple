@@ -1,41 +1,6 @@
 This is about the simplest reduction you can get for using eio_custom.
 
-Unfortunately, it blows up on Solaris, and I can't seem to figure out why.
-
 To run:
 
     node-waf configure build && node test.js
-
-Macs and Linux are like:
-
-    js 0 before
-          >>>DoSomethingAsync 1 2
-          >>>about to eio_custom, sr=6438512
-          >>>returning
-          >>>DoSomething 6438544,6438512
-          >>>sr pointer 6438512
-          >>>about to sleep
-          >>>read req, about to set result
-          >>>x 1
-          >>>y 2
-          >>>returning
-          >>>DoSomething_After 6438544
-    js 2016 null 3
-
-
-But solaris is all:
-
-    js 0 before
-          >>>DoSomethingAsync 1 2
-          >>>about to eio_custom, sr=139274000
-          >>>returning
-          >>>DoSomething 139241808,1024
-          >>>sr pointer 1024
-          >>>about to sleep
-          >>>read req, about to set result
-    Segmentation Fault (core dumped)
-
-Take a look again.  Note that the req->data pointer is getting set from
-some big number which corresponds to a valid memory location assigned
-by malloc, to 1024, which isn't valid at all.
 
