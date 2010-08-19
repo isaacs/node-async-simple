@@ -8,26 +8,26 @@ To run:
 
 Macs and Linux are like:
 
-    js 0 before hello
-          >>>DoSomethingAsync 1 2 hello
-          >>>about to eio_custom, sr=6438576
+    js 0 before
+          >>>DoSomethingAsync 1 2
+          >>>about to eio_custom, sr=6438512
           >>>returning
-          >>>DoSomething 6438608,6438576
-          >>>sr pointer 6438576
+          >>>DoSomething 6438544,6438512
+          >>>sr pointer 6438512
           >>>about to sleep
           >>>read req, about to set result
           >>>x 1
           >>>y 2
           >>>returning
-          >>>DoSomething_After 6438608
-    js 2016 null 3 hello
+          >>>DoSomething_After 6438544
+    js 2016 null 3
 
 
 But solaris is all:
 
-    js 0 before hello
-          >>>DoSomethingAsync 1 2 hello
-          >>>about to eio_custom, sr=138834904
+    js 0 before
+          >>>DoSomethingAsync 1 2
+          >>>about to eio_custom, sr=139274000
           >>>returning
           >>>DoSomething 139241808,1024
           >>>sr pointer 1024
