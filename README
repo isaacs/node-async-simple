@@ -1,0 +1,3 @@
+This is about the simplest reduction you can get for using eio_custom.
+
+Unfortunately, it blows up on Solaris, and I can't seem to figure out why.
