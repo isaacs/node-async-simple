@@ -17,8 +17,8 @@ extern "C" void init (Handle<Object>);
 struct simple_request {
   int x;
   int y;
-  char name[1];
   Persistent<Function> cb;
+  char name[1];
 };
 
 static Handle<Value> DoSomethingAsync (const Arguments& args) {
@@ -41,7 +41,7 @@ static Handle<Value> DoSomethingAsync (const Arguments& args) {
   sr->x = x;
   sr->y = y;
 
-  fprintf(stderr, "      >>>about to eio_custom\n");
+  fprintf(stderr, "      >>>about to eio_custom, sr=%d\n", sr);
   eio_custom(DoSomething, EIO_PRI_DEFAULT, DoSomething_After, sr);
   ev_ref(EV_DEFAULT_UC);
   fprintf(stderr, "      >>>returning\n");
