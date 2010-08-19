@@ -5,3 +5,46 @@ Unfortunately, it blows up on Solaris, and I can't seem to figure out why.
 To run:
 
     node-waf configure build && node test.js
+
+Macs and Linux are like:
+
+    1282213360099 'before hello'
+          >>>DoSomethingAsync 1 2 hello
+          >>>about to eio_custom
+          >>>returning
+    1282213360115 'before goodbye'
+          >>>DoSomethingAsync 3 4 goodbye
+          >>>about to eio_custom
+          >>>returning
+          >>>DoSomething 6438992
+          >>>about to sleep
+          >>>DoSomething 622854192
+          >>>about to sleep
+          >>>read req, about to set result
+          >>>returning
+          >>>read req, about to set result
+          >>>returning
+          >>>DoSomething_After 6438992
+    1282213362116 null 3 'hello'
+          >>>DoSomething_After 622854192
+    1282213362116 null 7 'goodbye'
+
+
+
+But solaris is all:
+
+    1282213076156 'before hello'
+          >>>DoSomethingAsync 1 2 hello
+          >>>about to eio_custom
+          >>>returning
+          >>>DoSomething 139077240
+          >>>about to sleep
+    1282213076175 'before goodbye'
+          >>>DoSomethingAsync 3 4 goodbye
+          >>>about to eio_custom
+          >>>returning
+          >>>DoSomething 139077352
+          >>>about to sleep
+          >>>read req, about to set result
+          >>>read req, about to set result
+    Segmentation Fault (core dumped)
