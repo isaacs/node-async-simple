@@ -3,4 +3,5 @@
 , "version" : "1.0.0"
 , "author" : "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)"
 , "main" : "build/default/nas.node"
+, "scripts" : { "test" : "node test.js" }
 }

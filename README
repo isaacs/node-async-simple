@@ -4,3 +4,7 @@ To run:
 
     node-waf configure build && node test.js
 
+Or, you can link or install it with npm.  Note that it has hardly anything
+in the package.json, either.
+
+    npm link && npm test async-simple
