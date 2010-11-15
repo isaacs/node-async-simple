@@ -47,6 +47,7 @@ static Handle<Value> DoSomethingAsync (const Arguments& args) {
 }
 
 // this function happens on the thread pool
+// doing v8 things in here will make bad happen.
 static int DoSomething (eio_req *req) {
   struct simple_request * sr = (struct simple_request *)req->data;
   sleep(2); // just to make it less pointless to be async.
